@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from . import models
@@ -5,6 +6,9 @@ from . import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
+def car_management(request):
+    return render(request, 'cars/car_management.html')
 
 class CarsViewset(APIView):
     def get(self, request, id=None):
