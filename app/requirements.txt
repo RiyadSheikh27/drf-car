@@ -4,3 +4,4 @@ psycopg2-binary==2.9.7  # PostgreSQL adapter
 gunicorn==21.2.0  # Production server
 whitenoise==6.5.0  # Static files
 dj-database-url==2.0.0  # For DB config
+python-dotenv>=1.0.0

@@ -92,12 +92,17 @@ WSGI_APPLICATION = "app.wsgi.application"
 # }
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default='postgresql://postgres:postgres@localhost:5432/cars',  # Local fallback
         conn_max_age=600,
         conn_health_checks=True,
     )
 }
-
+try:
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    print("Database configuration:", DATABASES['default'])
+except Exception as e:
+    print("Database configuration error:", str(e))
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
