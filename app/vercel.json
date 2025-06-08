@@ -26,8 +26,5 @@
       "src": "/(.*)",
       "dest": "app/wsgi.py"
     }
-  ],
-  "hooks": {
-    "preBuild": "python -m pip install -r requirements.txt && python manage.py collectstatic --noinput"
-  }
+  ]
 }
