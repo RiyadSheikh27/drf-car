@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.wsgi import get_wsgi_application
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -157,3 +158,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'app.settings')
+application = get_wsgi_application() 
