@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-# new for deploy
-import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-!#7!fr-wcaj_eaij!j&5nkqz!o#ef0cu+t+@*cbw^0zz)ngte$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '.vercel.app',
+    '.now.sh',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -80,29 +86,26 @@ WSGI_APPLICATION = "app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "cars",
+        "USER": "postgres",
+        "PASSWORD": "1234",
+        "HOST": "localhost",
+
+    }
+}
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "cars",
+#         "NAME": "railway",
 #         "USER": "postgres",
-#         "PASSWORD": "1234",
-#         "HOST": "localhost",
-
+#         "PASSWORD": "iOmUAbwQhRmyasciMUUybatQZdzXQrvx",
+#         "HOST": "shinkansen.proxy.rlwy.net",
+#         "port": "42741"
 #     }
 # }
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/cars',  # Local fallback
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
-try:
-    db_from_env = dj_database_url.config()
-    DATABASES['default'].update(db_from_env)
-    print("Database configuration:", DATABASES['default'])
-except Exception as e:
-    print("Database configuration error:", str(e))
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -148,8 +151,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# STATICFILES_DIRS = [
+#     # os.path.join(BASE_DIR, 'cars/static'),
+# ]
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'cars/static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
-
-STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
